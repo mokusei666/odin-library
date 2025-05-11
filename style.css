@@ -35,7 +35,7 @@ h1 {
 #library {
   padding: 2em;
   display: grid;
-  grid-template: repeat(auto-fit, 200px) / repeat(auto-fit, minmax(500px, 1fr));
+  grid-template: repeat(auto-fit, 200px) / repeat(auto-fit, minmax(600px, 1fr));
   gap: 2em;
 }
 
@@ -45,6 +45,7 @@ h1 {
   background-color: white;
   border-radius: 7px;
   display: flex;
+  height: 200px;
 }
 
 .card__highlight {
