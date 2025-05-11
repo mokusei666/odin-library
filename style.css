@@ -16,6 +16,19 @@ button {
 body {
   background-color: var(--navy-blue);
   font-family: Arial, Helvetica, sans-serif;
+  padding: 1em;
+}
+
+h1 {
+  color: white;
+}
+
+.add-book {
+  background-color: green;
+  padding: 8px 12px;
+  border-radius: 3px;
+  font-size: 1.25rem;
+  margin-top: 1em;
 }
 
 #library {
@@ -46,25 +59,25 @@ body {
 .card__header {
   width: 100%;
   display: flex;
-  align-items: center;
-  gap: 2em;
+  gap: 1em;
 }
 
 #card__title,
 #card__author {
   overflow: hidden;
-  white-space: nowrap;
+  white-space: wrap;
   text-overflow: ellipsis;
 }
 
 #card__title {
   font-size: 2rem;
-  max-width: 60%;
+  max-width: 50%;
 }
 
 #card__author {
   font-size: 1.25rem;
-  max-width: 40%;
+  max-width: 50%;
+  margin-top: 8px;
 }
 
 .card__subheader {
