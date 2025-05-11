@@ -29,7 +29,7 @@ function render() {
         <div class="card__info">
           <div class="card__header">
             <h2 id="card__title">${book.title}</h2>
-            <h3 id="card__author">${book.author}</h3>
+            <h3 id="card__author">by ${book.author}</h3>
           </div>
           <div class="card__subheader">
             <p class="card__pages">
@@ -46,6 +46,20 @@ function render() {
       </div>
     `;
   });
-}
+};  
 
 render();
+
+function formControl() {
+  const newBookButton = document.querySelector('.add-book');
+  const dialog = document.querySelector('dialog');
+  newBookButton.addEventListener('click', () => {
+    dialog.showModal();
+  })
+  const formCloseButton = document.querySelector('.form__close-btn');
+  formCloseButton.addEventListener('click', () => {
+    dialog.close();
+  })
+}
+
+formControl();
