@@ -12,14 +12,10 @@ Book.prototype.toggleRead = function () {
   this.read = this.read === 'check' ? 'circle-xmark' :'check';
 }
 
-const newBook = new Book('title', 'author', 100, 'check')
-
 function addBookToLibrary(book) {
   myLibrary.push(book);
   render();
 }
-
-addBookToLibrary(newBook)
 
 function render() {
   const libraryContainer = document.getElementById('library');
