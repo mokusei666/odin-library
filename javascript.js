@@ -8,17 +8,10 @@ function Book(author, title, pages, read) {
   this.id = crypto.randomUUID();
 }
 
-const theHobbit = new Book('J.R.R Tolkien', 'The Hobbit', 368, 'check');
-console.log(theHobbit);
-const theWitcher = new Book('Andrzej Sapkowski', 'The Witcher The Last Wish', 384, 'circle-xmark');
-
 function addBookToLibrary(book) {
   myLibrary.push(book);
+  render();
 }
-
-addBookToLibrary(theHobbit);
-addBookToLibrary(theWitcher);
-console.log(myLibrary);
 
 function render() {
   const libraryContainer = document.getElementById('library');
@@ -40,20 +33,28 @@ function render() {
               <i class="fa-solid fa-${book.read}"></i>
             </button>   
           </div>
-          <button class="card__remove-btn">
+          <button data-id="${book.id}" class="card__remove-btn">
             <i class="fa-solid fa-circle-xmark"></i>
           </button>
         </div>
       </div>
     `;
+    const removeButton = document.querySelectorAll('.card__remove-btn');
+    removeButton.forEach(button => {
+      button.addEventListener('click', () => {
+        const id = button.dataset.id;
+        const index = myLibrary.findIndex(book => book.id === id);
+        myLibrary.splice(index, 1)
+        render();
+      });
+    });
   });
-};  
+};
 
-render();
+const dialog = document.querySelector('dialog');
 
 function formControl() {
   const newBookButton = document.querySelector('.add-book');
-  const dialog = document.querySelector('dialog');
   newBookButton.addEventListener('click', () => {
     dialog.showModal();
   })
@@ -76,5 +77,7 @@ formSubmitButton.addEventListener('click', (event) => {
   if (title && author && pages && readStatus) {
     addBookToLibrary(new Book(title, author, pages, readStatus));
     render();
+    document.querySelector('form').reset();
+    dialog.close();
   }
-})
+});
