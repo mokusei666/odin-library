@@ -115,11 +115,11 @@ h1 {
 
 form {
   position: fixed;
-  left: 30%;
-  top: 30%;
+  left: 35%;
+  top: 25%;
   background-color: white;
   padding: 1em;
-  width: 400px;
+  width: 500px;
 }
 
 form button {
