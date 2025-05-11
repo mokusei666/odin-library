@@ -8,10 +8,18 @@ function Book(author, title, pages, read) {
   this.id = crypto.randomUUID();
 }
 
+Book.prototype.toggleRead = function () {
+  this.read = this.read === 'check' ? 'circle-xmark' :'check';
+}
+
+const newBook = new Book('title', 'author', 100, 'check')
+
 function addBookToLibrary(book) {
   myLibrary.push(book);
   render();
 }
+
+addBookToLibrary(newBook)
 
 function render() {
   const libraryContainer = document.getElementById('library');
@@ -29,7 +37,7 @@ function render() {
             <p class="card__pages">
             ${book.pages} pages
             </p>
-            <button class="card__toggle-read toggled-${book.read}">
+            <button class="card__toggle-read toggled-${book.read}" data-id="${book.id}">
               <i class="fa-solid fa-${book.read}"></i>
             </button>   
           </div>
@@ -48,6 +56,15 @@ function render() {
         render();
       });
     });
+    const toggleReadButton = document.querySelectorAll('.card__toggle-read');
+    toggleReadButton.forEach(button => {
+      button.addEventListener('click', () => {
+        const id = button.dataset.id;
+        const index = myLibrary.findIndex(book => book.id === id);
+        myLibrary[index].toggleRead();
+        render();
+      })
+    })
   });
 };
 
