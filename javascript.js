@@ -19,8 +19,8 @@ class Book {
 }
 
 Book.prototype.toggleRead = function () {
-  this.read = this.read === 'check' ? 'circle-xmark' :'check';
-}
+  this.read = this.read === "check" ? "circle-xmark" : "check";
+};
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
@@ -28,9 +28,9 @@ function addBookToLibrary(book) {
 }
 
 function render() {
-  const libraryContainer = document.getElementById('library');
-  libraryContainer.innerHTML = '';
-  myLibrary.forEach(book => {
+  const libraryContainer = document.getElementById("library");
+  libraryContainer.innerHTML = "";
+  myLibrary.forEach((book) => {
     libraryContainer.innerHTML += `
       <div class="card">
         <div class="card__highlight"></div>
@@ -53,54 +53,65 @@ function render() {
         </div>
       </div>
     `;
-    const removeButton = document.querySelectorAll('.card__remove-btn');
-    removeButton.forEach(button => {
-      button.addEventListener('click', () => {
+    const removeButton = document.querySelectorAll(".card__remove-btn");
+    removeButton.forEach((button) => {
+      button.addEventListener("click", () => {
         const id = button.dataset.id;
-        const index = myLibrary.findIndex(book => book.id === id);
-        myLibrary.splice(index, 1)
+        const index = myLibrary.findIndex((book) => book.id === id);
+        myLibrary.splice(index, 1);
         render();
       });
     });
-    const toggleReadButton = document.querySelectorAll('.card__toggle-read');
-    toggleReadButton.forEach(button => {
-      button.addEventListener('click', () => {
+    const toggleReadButton = document.querySelectorAll(".card__toggle-read");
+    toggleReadButton.forEach((button) => {
+      button.addEventListener("click", () => {
         const id = button.dataset.id;
-        const index = myLibrary.findIndex(book => book.id === id);
+        const index = myLibrary.findIndex((book) => book.id === id);
         myLibrary[index].toggleRead();
         render();
-      })
-    })
+      });
+    });
   });
-};
+}
 
-const dialog = document.querySelector('dialog');
+const dialog = document.querySelector("dialog");
 
 function formControl() {
-  const newBookButton = document.querySelector('.add-book');
-  newBookButton.addEventListener('click', () => {
+  const newBookButton = document.querySelector(".add-book");
+  newBookButton.addEventListener("click", () => {
     dialog.showModal();
-  })
-  const formCloseButton = document.querySelector('.form__close-btn');
-  formCloseButton.addEventListener('click', () => {
+  });
+  const formCloseButton = document.querySelector(".form__close-btn");
+  formCloseButton.addEventListener("click", () => {
     dialog.close();
-  })
+  });
 }
 
 formControl();
 
-const formSubmitButton = document.querySelector('.form__submit-btn');
-formSubmitButton.addEventListener('click', (event) => {
+const formSubmitButton = document.querySelector(".form__submit-btn");
+formSubmitButton.addEventListener("click", (event) => {
   event.preventDefault();
-  const title = document.getElementById('title').value;
-  const author = document.getElementById('author').value;
-  const pages = document.getElementById('pages').value;
-  const readElement = document.querySelector('input[name="read-status"]:checked');
-  const readStatus = readElement ? readElement.value : readStatus = false;
-  if (title && author && pages && readStatus) {
-    addBookToLibrary(new Book(title, author, pages, readStatus));
+  const form = document.querySelector("form");
+  const title = document.getElementById("title").value;
+  const author = document.getElementById("author").value;
+  const pages = document.getElementById("pages").value;
+  const readElement = document.querySelector(
+    'input[name="read-status"]:checked'
+  );
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  } else {
+    addBookToLibrary(new Book(title, author, pages, readElement.value));
     render();
-    document.querySelector('form').reset();
+    document.querySelector("form").reset();
     dialog.close();
   }
+  // if (title && author && pages && readStatus) {
+  //   addBookToLibrary(new Book(title, author, pages, readStatus));
+  //   render();
+  //   document.querySelector('form').reset();
+  //   dialog.close();
+  // }
 });
